@@ -1,0 +1,75 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'roboto', sans-serif;
+    height: 100vh;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #35477D;
+}
+button{
+    width: 80px;
+    height: 50px;
+    border: solid black;
+    text-emphasis: 500px;
+    transition: all 0.3s ease 0s;
+    background: none;
+    font-size: 30px;
+}
+#zeroButton{
+    width: 100%;
+}
+#calcContainer{
+    display: flex;
+    width: 350px;
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    gap: 10px;
+    background: #95A792;
+    padding: 10px;
+    border: solid black;
+}
+#display{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    font-size: 50px;
+    height: 80px;
+    width: 100%;
+    border: solid black;
+    background: #e3d1b5;
+}
+#display span{
+    padding-right: 5px;
+}
+#buttonContainer{
+    display: flex;
+    flex: 0 0 auto;
+    gap: 10px;
+}
+#numContainer{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#numContainer button{
+    background: #e3d1b5;
+}
+#numContainer button#clr{
+    background: rgb(229, 77, 77);
+}
+
+#operators{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+#operators button{
+    background: rgb(227, 159, 32);
+}
