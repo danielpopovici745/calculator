@@ -83,7 +83,10 @@ function equalsEventListener(){
 
 function operatorsEventListener(){
     operators = document.querySelectorAll('#operators button.display');
+    sqaureRt = document.querySelector("#sqrt");
+    sqaureRt.addEventListener('click', displayOperator);
     operators.forEach(operator => operator.addEventListener('click', displayOperator));
+
 }
 
 function numbersEventListener(){
@@ -106,6 +109,7 @@ function displayOperator(e){
 }
 
 function removeOperatorsListeners(){
+    sqaureRt.removeEventListener('click', displayOperator)
     operators.forEach(operator => operator.removeEventListener('click',displayOperator));
 }
 function calculatorStart(){
