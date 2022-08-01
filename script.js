@@ -1,27 +1,60 @@
 function add(text) {
     let textArr = text.split("+");
+    console.log(textArr);
     let numArr = textArr.map((current) => parseInt(current));
     clearScreen();
     let addition = numArr[0] + numArr[1];
     displayScreen(addition);
 }
-function subtract(num1,num2) {
-    return num1 - num2;
+function subtract(text) {
+    let textArr = text.split("-");
+    console.log(textArr);
+    let numArr = textArr.map((current) => parseInt(current));
+    clearScreen();
+    let subtraction = numArr[0] - numArr[1];
+    displayScreen(subtraction);
 }
-function multiply(num1,num2) {
-    return num1 * num2;
+function multiply(text) {
+    let textArr = text.split("×");
+    console.log(textArr);
+    let numArr = textArr.map((current) => parseInt(current));
+    clearScreen();
+    let multiplication = numArr[0] * numArr[1];
+    displayScreen(multiplication);
 }
-function divide(num1,num2) {
-    return num1 / num2;
+function divide(text) {
+    let textArr = text.split("÷");
+    console.log(textArr);
+    let numArr = textArr.map((current) => parseInt(current));
+    clearScreen();
+    let division = numArr[0] / numArr[1];
+    displayScreen(division);
 }
-function sqroot(num1) {
-    return Math.sqrt(num1);
+function sqRoot(text) {
+    console.log(text);
+    let textArr = text.split('√');
+    console.log(textArr);
+    let numArr = textArr.map((current) => parseInt(current));
+    clearScreen();
+    let sqrt = Math.sqrt(numArr[1]).toFixed(4);
+    displayScreen(sqrt);
 }
 //Find which operator the user picked
 function operate(text){
-    let textArr = [...text];
-    if(textArr.find((element) => element == '+') === '+'){
+    if(text.includes('+') === true){
         add(text);
+    }
+    else if(text.includes('-') === true){
+        subtract(text);
+    }
+    else if(text.includes('×')){
+        multiply(text);
+    }
+    else if(text.includes('÷')){
+        divide(text);
+    }
+    else if(text.includes('√')){
+        sqRoot(text);
     }
 }
 

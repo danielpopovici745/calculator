@@ -43,6 +43,7 @@ button{
     width: 100%;
     border: solid black;
     background: #e3d1b5;
+    overflow: hidden;
 }
 #display span{
     padding-right: 5px;
