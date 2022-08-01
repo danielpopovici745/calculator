@@ -1,5 +1,9 @@
-function add(num1,num2) {
-    return num1 + num2;
+function add(text) {
+    let textArr = text.split("+");
+    let numArr = textArr.map((current) => parseInt(current));
+    clearScreen()
+    let addition = numArr[0] + numArr[1];
+    displayScreen(addition);
 }
 function subtract(num1,num2) {
     return num1 - num2;
@@ -13,9 +17,13 @@ function divide(num1,num2) {
 function sqroot(num1) {
     return Math.sqrt(num1);
 }
+//Find which operator the user picked
+function operate(text){
+    let textArr = [...text];
 
-function operate(operator,num1,num2){
-    add(num1,num2);
+    if(textArr.find((element) => element == '+') === '+'){
+        add(text);
+    }
 }
 
 function displayScreen(text){
@@ -48,5 +56,11 @@ operators.forEach(operator => operator.addEventListener('click',function getText
 let clear = document.querySelector('#clr');
 clear.addEventListener('click',()=> clearScreen());
 
+// Equals EventListener
 
+let equals = document.querySelector('#equals');
+equals.addEventListener('click',function (){
+    let text = displaySpan.textContent;
+    operate(text)
+})
 
