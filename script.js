@@ -1,7 +1,7 @@
 function add(text) {
     let textArr = text.split("+");
     let numArr = textArr.map((current) => parseInt(current));
-    clearScreen()
+    clearScreen();
     let addition = numArr[0] + numArr[1];
     displayScreen(addition);
 }
@@ -32,25 +32,47 @@ function displayScreen(text){
 
 function clearScreen(){
     displaySpan.textContent='';
+    operatorsEventListener();
+}
+
+function operatorsEventListener(){
+    operators = document.querySelectorAll('#operators button.display');
+    operators.forEach(operator => operator.addEventListener('click', displayOperator));
+}
+
+function numbersEventListener(){
+    numbers = document.querySelectorAll('#numContainer button.display');
+    numbers.forEach(function(number){
+        number.addEventListener('click', displayNumbers);
+    });
+    
+}
+
+function displayNumbers(e){
+    let text = e.target.textContent;
+    displayScreen(text);
+}
+
+function displayOperator(e){
+    let text = e.target.textContent;
+    displayScreen(text);
+    removeOperatorsListeners();
+}
+
+function removeOperatorsListeners(){
+    operators.forEach(operator => operator.removeEventListener('click',displayOperator));
 }
 
 let displaySpan = document.querySelector('#display span');
+numbersEventListener();
+operatorsEventListener();
 
 //Numbers Event Listeners
 
-let numbers = document.querySelectorAll('#numContainer button.display');
-numbers.forEach(number => number.addEventListener('click',function getText(){
-    let text = number.textContent;
-    displayScreen(text);
-}));
+
 
 //Operators EventListeners
 
-let operators = document.querySelectorAll('#operators button.display');
-operators.forEach(operator => operator.addEventListener('click',function getText(){
-    let text = operator.textContent;
-    displayScreen(text);
-}));
 
 
 let clear = document.querySelector('#clr');
