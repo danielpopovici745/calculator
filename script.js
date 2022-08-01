@@ -20,19 +20,32 @@ function sqroot(num1) {
 //Find which operator the user picked
 function operate(text){
     let textArr = [...text];
-
     if(textArr.find((element) => element == '+') === '+'){
         add(text);
     }
 }
 
 function displayScreen(text){
+    displaySpan = document.querySelector('#display span');
     displaySpan.textContent += text;
 }
 
 function clearScreen(){
     displaySpan.textContent='';
     operatorsEventListener();
+}
+
+function clearButtonEventListener(){
+    let clear = document.querySelector('#clr');
+    clear.addEventListener('click',()=> clearScreen());
+}
+
+function equalsEventListener(){
+    let equals = document.querySelector('#equals');
+    equals.addEventListener('click',function (){
+    let text = displaySpan.textContent;
+    operate(text);
+});
 }
 
 function operatorsEventListener(){
@@ -62,27 +75,11 @@ function displayOperator(e){
 function removeOperatorsListeners(){
     operators.forEach(operator => operator.removeEventListener('click',displayOperator));
 }
+function calculatorStart(){
+    equalsEventListener();
+    numbersEventListener();
+    operatorsEventListener();
+    clearButtonEventListener();
+}
 
-let displaySpan = document.querySelector('#display span');
-numbersEventListener();
-operatorsEventListener();
-
-//Numbers Event Listeners
-
-
-
-//Operators EventListeners
-
-
-
-let clear = document.querySelector('#clr');
-clear.addEventListener('click',()=> clearScreen());
-
-// Equals EventListener
-
-let equals = document.querySelector('#equals');
-equals.addEventListener('click',function (){
-    let text = displaySpan.textContent;
-    operate(text)
-})
-
+calculatorStart();
