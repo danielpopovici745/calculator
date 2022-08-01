@@ -2,7 +2,7 @@
 
 Hello! Hope you enjoy my webpage Calculator I made!
 
-## Technoligies Used
+## Technologies Used
 - HTML
 - CSS
 - JavaScript
