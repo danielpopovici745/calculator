@@ -42,7 +42,6 @@ button{
     height: 80px;
     width: 100%;
     border: solid black;
-    background: #e3d1b5;
     overflow: hidden;
 }
 #display span{
@@ -59,9 +58,10 @@ button{
     gap: 10px;
 }
 
-#numContainer button{
+#numContainer .display, #display{
     background: #e3d1b5;
 }
+
 #numContainer button#clr{
     background: rgb(229, 77, 77);
 }
@@ -71,6 +71,6 @@ button{
     flex-direction: column;
     gap: 10px;
 }
-#operators button{
+#operators button, #sqrt, #negative{
     background: rgb(227, 159, 32);
 }
