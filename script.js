@@ -208,9 +208,11 @@ function keyPressed(e){
             break;
         case key == 'Enter':
             operate(displaySpan.textContent);
+            operatorPressed = false;
             break;
         case key == "Backspace":
             displaySpan.textContent = displaySpan.textContent.slice(0,-1);
+            operatorPressed = false;
             break;
     }
     
