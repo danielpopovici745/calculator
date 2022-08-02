@@ -1,3 +1,4 @@
+//get operands from text into an array then use the operator the user selected.
 function add(text) {
     let textArr = text.split("+");
     console.log(textArr);
@@ -7,34 +8,59 @@ function add(text) {
     displayScreen(addition);
 }
 function subtract(text) {
-    let textArr = text.split("-");
+    let subtraction;
+    let num1;
+
+    let textArr = text.split("-")
     console.log(textArr);
+
     let numArr = textArr.map((current) => parseFloat(current));
+
     clearScreen();
-    let subtraction = numArr[0] - numArr[1];
+
+    if(Number.isNaN(numArr[0]) && Number.isNaN(numArr[2])){
+        subtraction = -numArr[1] - -numArr[3];
+    }
+    else if(Number.isNaN(numArr[0])){
+        subtraction = -numArr[1] - numArr[2];
+    }
+    else if(Number.isNaN(numArr[1])){
+        subtraction = numArr[0] - -numArr[2];
+    }
     displayScreen(subtraction);
 }
 function multiply(text) {
     let textArr = text.split("×");
+
     let numArr = textArr.map((current) => parseFloat(current));
+
     clearScreen();
-    console.log(numArr);
+
     let multiplication = numArr[0] * numArr[1];
+
     displayScreen(multiplication);
 }
 function divide(text) {
     let textArr = text.split("÷");
     console.log(textArr);
+
     let numArr = textArr.map((current) => parseFloat(current));
+
     clearScreen();
+
     let division = numArr[0] / numArr[1];
+
     displayScreen(division);
 }
 function sqRoot(text) {
     let textArr = text.split('√');
+
     let numArr = textArr.map((current) => parseFloat(current));
+
     clearScreen();
+
     let sqrt = Math.sqrt(numArr[1]).toFixed(4);
+
     displayScreen(sqrt);
 }
 //Find which operator the user picked
@@ -56,12 +82,15 @@ function operate(text){
     }
 }
 
+//Controls what is displayed on the screen and how
+
 function displayScreen(text){
     displaySpan = document.querySelector('#display span');
-    if(text === '√' && Number.isInteger(parseInt(displaySpan.textContent[0]))){
+
+    if(text === '√' && Number.isInteger(parseInt(displaySpan.textContent))){
         displaySpan.textContent = text + displaySpan.textContent;
     }
-    else if (text[1] === '-' && Number.isInteger(parseInt(displaySpan.textContent[0]))) {
+    else if (text[1] === '-' && Number.isInteger(parseInt(displaySpan.textContent)) && displaySpan.textContent.length == 1) {
         displaySpan.textContent = text[1] + displaySpan.textContent;
     }
     else if(text[1] == '-'){
