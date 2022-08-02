@@ -18,6 +18,13 @@ button{
     background: none;
     font-size: 30px;
 }
+
+button:hover{
+    opacity: 0.7;
+}
+button:active{
+    opacity: 0.5;
+}
 #zeroButton{
     width: 100%;
 }
@@ -42,10 +49,11 @@ button{
     height: 80px;
     width: 100%;
     border: solid black;
-    background: #e3d1b5;
+    overflow: hidden;
 }
 #display span{
     padding-right: 5px;
+    white-space: nowrap;
 }
 #buttonContainer{
     display: flex;
@@ -58,9 +66,10 @@ button{
     gap: 10px;
 }
 
-#numContainer button{
+#numContainer .display, #display{
     background: #e3d1b5;
 }
+
 #numContainer button#clr{
     background: rgb(229, 77, 77);
 }
@@ -70,6 +79,6 @@ button{
     flex-direction: column;
     gap: 10px;
 }
-#operators button{
+#operators button, #sqrt, #negative{
     background: rgb(227, 159, 32);
 }
