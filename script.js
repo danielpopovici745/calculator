@@ -73,9 +73,24 @@ function displayScreen(text){
     
 }
 
+function displayNumbers(e){
+    let text = e.target.textContent;
+    displayScreen(text);
+}
+
+function displayOperator(e){
+    let text = e.target.textContent;
+    if(text === '√'){
+        removeNegativeEventListener();
+    }
+    displayScreen(text);
+    removeOperatorsListeners();
+}
+
 function clearScreen(){
     displaySpan.textContent='';
     operatorsEventListener();
+    negativeEventListener();
 }
 
 function clearButtonEventListener(){
@@ -100,7 +115,7 @@ function operatorsEventListener(){
 }
 
 function negativeEventListener(){
-    let negative = document.querySelector('#negative');
+    negative = document.querySelector('#negative');
     negative.addEventListener('click',displayNumbers);
 }
 
@@ -112,20 +127,13 @@ function numbersEventListener(){
     
 }
 
-function displayNumbers(e){
-    let text = e.target.textContent;
-    displayScreen(text);
-}
-
-function displayOperator(e){
-    let text = e.target.textContent;
-    displayScreen(text);
-    removeOperatorsListeners();
-}
-
 function removeOperatorsListeners(){
     sqaureRt.removeEventListener('click', displayOperator)
     operators.forEach(operator => operator.removeEventListener('click',displayOperator));
+}
+
+function removeNegativeEventListener(){
+    negative.removeEventListener('click',displayNumbers)
 }
 function calculatorStart(){
     equalsEventListener();
