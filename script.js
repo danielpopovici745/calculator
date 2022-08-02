@@ -89,7 +89,6 @@ function operate(text){
 //Controls what is displayed on the screen and how
 
 function displayScreen(text){
-    displaySpan = document.querySelector('#display span');
     if(text === '√' && Number.isInteger(parseInt(displaySpan.textContent))){
         displaySpan.textContent = text + displaySpan.textContent;
     }
@@ -174,5 +173,45 @@ function calculatorStart(){
     operatorsEventListener();
     clearButtonEventListener();
 }
-
+let operatorPressed = false;
+let displaySpan = document.querySelector('#display span');
 calculatorStart();
+
+window.addEventListener('keydown', keyPressed);
+
+function keyPressed(e){
+    let key = e.key;
+    console.log(e);
+
+    if(!operatorPressed){
+        switch (key){
+            case "+":
+                displayScreen("+")
+                operatorPressed = true
+                break;
+            case "/":
+                displayScreen("÷")
+                operatorPressed = true
+                break;
+            case "x":
+                displayScreen("×")
+                operatorPressed = true
+                break;
+        }
+    }
+    switch (true){
+        case key >=0 && key <=9:
+            displayScreen(key);
+            break;
+        case key == '-':
+            displayScreen(key);
+            break;
+        case key == 'Enter':
+            operate(displaySpan.textContent);
+            break;
+        case key == "Backspace":
+            displaySpan.textContent = displaySpan.textContent.slice(0,-1);
+            break;
+    }
+    
+}
