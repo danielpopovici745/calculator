@@ -1,7 +1,7 @@
 function add(text) {
     let textArr = text.split("+");
     console.log(textArr);
-    let numArr = textArr.map((current) => parseInt(current));
+    let numArr = textArr.map((current) => parseFloat(current));
     clearScreen();
     let addition = numArr[0] + numArr[1];
     displayScreen(addition);
@@ -9,32 +9,30 @@ function add(text) {
 function subtract(text) {
     let textArr = text.split("-");
     console.log(textArr);
-    let numArr = textArr.map((current) => parseInt(current));
+    let numArr = textArr.map((current) => parseFloat(current));
     clearScreen();
     let subtraction = numArr[0] - numArr[1];
     displayScreen(subtraction);
 }
 function multiply(text) {
     let textArr = text.split("×");
-    console.log(textArr);
-    let numArr = textArr.map((current) => parseInt(current));
+    let numArr = textArr.map((current) => parseFloat(current));
     clearScreen();
+    console.log(numArr);
     let multiplication = numArr[0] * numArr[1];
     displayScreen(multiplication);
 }
 function divide(text) {
     let textArr = text.split("÷");
     console.log(textArr);
-    let numArr = textArr.map((current) => parseInt(current));
+    let numArr = textArr.map((current) => parseFloat(current));
     clearScreen();
     let division = numArr[0] / numArr[1];
     displayScreen(division);
 }
 function sqRoot(text) {
-    console.log(text);
     let textArr = text.split('√');
-    console.log(textArr);
-    let numArr = textArr.map((current) => parseInt(current));
+    let numArr = textArr.map((current) => parseFloat(current));
     clearScreen();
     let sqrt = Math.sqrt(numArr[1]).toFixed(4);
     displayScreen(sqrt);
@@ -60,7 +58,13 @@ function operate(text){
 
 function displayScreen(text){
     displaySpan = document.querySelector('#display span');
-    displaySpan.textContent += text;
+    if(text === '√' && Number.isInteger(parseInt(displaySpan.textContent[0]))){
+        displaySpan.textContent = text + displaySpan.textContent;
+    }
+    else{
+        displaySpan.textContent += text;
+    }
+    
 }
 
 function clearScreen(){
