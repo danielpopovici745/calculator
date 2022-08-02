@@ -39,20 +39,20 @@ function sqRoot(text) {
 }
 //Find which operator the user picked
 function operate(text){
-    if(text.includes('+') === true){
+    if(text.includes('+') && text.includes('-') || text.includes('+')){
         add(text);
     }
-    else if(text.includes('-') === true){
-        subtract(text);
-    }
-    else if(text.includes('×')){
+    else if(text.includes('×') && text.includes('-') || text.includes('×')){
         multiply(text);
     }
-    else if(text.includes('÷')){
+    else if(text.includes('÷') && text.includes('-') || text.includes('÷')){
         divide(text);
     }
-    else if(text.includes('√')){
+    else if(text.includes('√') && text.includes('-') || text.includes('√')){
         sqRoot(text);
+    }
+    else if(text.includes('-')){
+        subtract(text);
     }
 }
 
@@ -60,6 +60,12 @@ function displayScreen(text){
     displaySpan = document.querySelector('#display span');
     if(text === '√' && Number.isInteger(parseInt(displaySpan.textContent[0]))){
         displaySpan.textContent = text + displaySpan.textContent;
+    }
+    else if (text[1] === '-' && Number.isInteger(parseInt(displaySpan.textContent[0]))) {
+        displaySpan.textContent = text[1] + displaySpan.textContent;
+    }
+    else if(text[1] == '-'){
+        displaySpan.textContent += text[1];
     }
     else{
         displaySpan.textContent += text;
@@ -93,6 +99,11 @@ function operatorsEventListener(){
 
 }
 
+function negativeEventListener(){
+    let negative = document.querySelector('#negative');
+    negative.addEventListener('click',displayNumbers);
+}
+
 function numbersEventListener(){
     numbers = document.querySelectorAll('#numContainer button.display');
     numbers.forEach(function(number){
@@ -119,6 +130,7 @@ function removeOperatorsListeners(){
 function calculatorStart(){
     equalsEventListener();
     numbersEventListener();
+    negativeEventListener();
     operatorsEventListener();
     clearButtonEventListener();
 }
