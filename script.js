@@ -101,7 +101,17 @@ function displayScreen(text){
     else{
         displaySpan.textContent += text;
     }
-    
+    operatorPresent();
+}
+
+function operatorPresent(){
+    if(displaySpan.textContent.match(/[+√×÷]/g)){
+        removeOperatorsListeners();
+        operatorPressed = true;
+    }
+    else{
+        operatorsEventListener();
+    }
 }
 
 function displayNumbers(e){
@@ -115,13 +125,13 @@ function displayOperator(e){
         removeNegativeEventListener();
     }
     displayScreen(text);
-    removeOperatorsListeners();
 }
 
 function clearScreen(){
     displaySpan.textContent='';
     operatorsEventListener();
     negativeEventListener();
+    operatorPressed = false;
 }
 
 function clearButtonEventListener(){
@@ -212,8 +222,7 @@ function keyPressed(e){
             break;
         case key == "Backspace":
             displaySpan.textContent = displaySpan.textContent.slice(0,-1);
-            operatorPressed = false;
+            operatorPresent();
             break;
     }
-    
 }
