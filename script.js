@@ -27,6 +27,10 @@ function subtract(text) {
     else if(Number.isNaN(numArr[1])){
         subtraction = numArr[0] - -numArr[2];
     }
+    else{
+        subtraction = numArr[0] - numArr[1];
+    }
+
     displayScreen(subtraction);
 }
 function multiply(text) {
@@ -86,7 +90,6 @@ function operate(text){
 
 function displayScreen(text){
     displaySpan = document.querySelector('#display span');
-
     if(text === '√' && Number.isInteger(parseInt(displaySpan.textContent))){
         displaySpan.textContent = text + displaySpan.textContent;
     }

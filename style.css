@@ -53,6 +53,7 @@ button:active{
 }
 #display span{
     padding-right: 5px;
+    white-space: nowrap;
 }
 #buttonContainer{
     display: flex;
