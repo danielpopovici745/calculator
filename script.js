@@ -5,13 +5,13 @@ function add(text) {
     let numArr = textArr.map((current) => parseFloat(current));
     clearScreen();
     let addition = numArr[0] + numArr[1];
-    displayScreen(addition);
+    displayScreen(parseFloat(addition.toFixed(4)));
 }
 function subtract(text) {
     let subtraction;
     let num1;
 
-    let textArr = text.split("-")
+    let textArr = text.split("−")
     console.log(textArr);
 
     let numArr = textArr.map((current) => parseFloat(current));
@@ -31,7 +31,7 @@ function subtract(text) {
         subtraction = numArr[0] - numArr[1];
     }
 
-    displayScreen(subtraction);
+    displayScreen(parseFloat(subtraction.toFixed(4)));
 }
 function multiply(text) {
     let textArr = text.split("×");
@@ -42,7 +42,7 @@ function multiply(text) {
 
     let multiplication = numArr[0] * numArr[1];
 
-    displayScreen(multiplication);
+    displayScreen(parseFloat(multiplication.toFixed(4)));
 }
 function divide(text) {
     let textArr = text.split("÷");
@@ -54,7 +54,7 @@ function divide(text) {
 
     let division = numArr[0] / numArr[1];
 
-    displayScreen(division);
+    displayScreen(parseFloat(division.toFixed(4)));
 }
 function sqRoot(text) {
     let textArr = text.split('√');
@@ -65,7 +65,7 @@ function sqRoot(text) {
 
     let sqrt = Math.sqrt(numArr[1]).toFixed(4);
 
-    displayScreen(sqrt);
+    displayScreen(paraseFloat(sqrt));
 }
 //Find which operator the user picked
 function operate(text){
@@ -81,7 +81,7 @@ function operate(text){
     else if(text.includes('√') && text.includes('-') || text.includes('√')){
         sqRoot(text);
     }
-    else if(text.includes('-')){
+    else if(text.includes('−')){
         subtract(text);
     }
 }
@@ -89,11 +89,13 @@ function operate(text){
 //Controls what is displayed on the screen and how
 
 function displayScreen(text){
+    let screenNumber = Number(displaySpan.textContent);
     if(text === '√' && Number.isInteger(parseInt(displaySpan.textContent))){
         displaySpan.textContent = text + displaySpan.textContent;
     }
-    else if (text[1] === '-' && Number.isInteger(parseInt(displaySpan.textContent)) && displaySpan.textContent.length == 1) {
+    else if (text[1] === '-' && Number.isInteger(screenNumber) && screenNumber !== 0 && screenNumber > 0) {
         displaySpan.textContent = text[1] + displaySpan.textContent;
+
     }
     else if(text[1] == '-'){
         displaySpan.textContent += text[1];
@@ -105,12 +107,13 @@ function displayScreen(text){
 }
 
 function operatorPresent(){
-    if(displaySpan.textContent.match(/[+√×÷]/g)){
+    if(displaySpan.textContent.match(/[+√×÷−]/g)){
         removeOperatorsListeners();
         operatorPressed = true;
     }
     else{
         operatorsEventListener();
+        operatorPressed = false;
     }
 }
 
@@ -136,11 +139,13 @@ function clearScreen(){
 
 function clearButtonEventListener(){
     let clear = document.querySelector('#clr');
+    clear.tabIndex = '-1';
     clear.addEventListener('click',()=> clearScreen());
 }
 
 function equalsEventListener(){
     let equals = document.querySelector('#equals');
+    equals.tabIndex = '-1';
     equals.addEventListener('click',function (){
     let text = displaySpan.textContent;
     operate(text);
@@ -149,14 +154,18 @@ function equalsEventListener(){
 
 function operatorsEventListener(){
     operators = document.querySelectorAll('#operators button.display');
-    sqaureRt = document.querySelector("#sqrt");
-    sqaureRt.addEventListener('click', displayOperator);
+    operators.forEach((operator) =>{ operator.tabIndex = '-1'
+    });
+    squareRt = document.querySelector("#sqrt");
+    squareRt.tabIndex = '-1';
+    squareRt.addEventListener('click', displayOperator);
     operators.forEach(operator => operator.addEventListener('click', displayOperator));
 
 }
 
 function negativeEventListener(){
     negative = document.querySelector('#negative');
+    negative.tabIndex = '-1';
     negative.addEventListener('click',displayNumbers);
 }
 
@@ -164,12 +173,13 @@ function numbersEventListener(){
     numbers = document.querySelectorAll('#numContainer button.display');
     numbers.forEach(function(number){
         number.addEventListener('click', displayNumbers);
+        number.tabIndex = '-1';
     });
     
 }
 
 function removeOperatorsListeners(){
-    sqaureRt.removeEventListener('click', displayOperator)
+    squareRt.removeEventListener('click', displayOperator)
     operators.forEach(operator => operator.removeEventListener('click',displayOperator));
 }
 
@@ -207,13 +217,14 @@ function keyPressed(e){
                 displayScreen("×")
                 operatorPressed = true
                 break;
+            case '-':
+                displayScreen('−');
+                operatorPressed = true;
+                break;
         }
     }
     switch (true){
         case key >=0 && key <=9:
-            displayScreen(key);
-            break;
-        case key == '-':
             displayScreen(key);
             break;
         case key == 'Enter':
