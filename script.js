@@ -107,7 +107,18 @@ function displayScreen(text){
 }
 
 function operatorPresent(){
+    let numOfNegative = displaySpan.textContent.match(/[-]/g);
+    if(numOfNegative){
+        if (numOfNegative.length == 2) {
+            removeNegativeEventListener();
+        }
+        else{
+            negativeEventListener();
+        }
+    }
+
     if(displaySpan.textContent.match(/[+√×÷−]/g)){
+        console.log('check');
         removeOperatorsListeners();
         operatorPressed = true;
     }
@@ -184,6 +195,7 @@ function removeOperatorsListeners(){
 }
 
 function removeNegativeEventListener(){
+    hasListener = false;
     negative.removeEventListener('click',displayNumbers)
 }
 function calculatorStart(){
@@ -194,6 +206,8 @@ function calculatorStart(){
     clearButtonEventListener();
 }
 let operatorPressed = false;
+let negativePressed = 0;
+let hasListener;
 let displaySpan = document.querySelector('#display span');
 calculatorStart();
 
@@ -201,7 +215,6 @@ window.addEventListener('keydown', keyPressed);
 
 function keyPressed(e){
     let key = e.key;
-    console.log(e);
 
     if(!operatorPressed){
         switch (key){
