@@ -1,5 +1,4 @@
 # Calculator
-
 Hello! Hope you enjoy my webpage Calculator I made!
 <strong></br>[Link to project](https://danielpopovici745.github.io/calculator/)</strong>
 

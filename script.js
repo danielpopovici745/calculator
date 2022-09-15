@@ -1,7 +1,7 @@
 //get operands from text into an array then use the operator the user selected.
 function add(text) {
     let textArr = text.split("+");
-    console.log(textArr);
+    
     let numArr = textArr.map((current) => parseFloat(current));
     clearScreen();
     let addition = numArr[0] + numArr[1];
@@ -45,7 +45,7 @@ function multiply(text) {
 }
 function divide(text) {
     let textArr = text.split("÷");
-    console.log(textArr);
+    
 
     let numArr = textArr.map((current) => parseFloat(current));
 
