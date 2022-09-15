@@ -65,7 +65,7 @@ function sqRoot(text) {
 
     let sqrt = Math.sqrt(numArr[1]).toFixed(4);
 
-    displayScreen(paraseFloat(sqrt));
+    displayScreen(parseFloat(sqrt));
 }
 //Find which operator the user picked
 function operate(text){
