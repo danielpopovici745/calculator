@@ -100,9 +100,13 @@ function displayScreen(text){
     if(text === '√' && Number.isInteger(parseInt(displaySpan.textContent))){
         displaySpan.textContent = text + displaySpan.textContent;
     }
-    else if (text[1] === '-' && Number.isInteger(screenNumber) && screenNumber !== 0 && screenNumber > 0) {
+    else if (text[1] === '-' && Number.isInteger(screenNumber) && screenNumber > 0) {
         displaySpan.textContent = text[1] + displaySpan.textContent;
 
+    }
+    // puts negative symbol before √ if present
+    else if (text[1] == "-" && displaySpan.textContent.includes("√")){
+        displaySpan.textContent = text[1] + displaySpan.textContent;
     }
     else if(text[1] == '-'){
         displaySpan.textContent += text[1];
@@ -128,7 +132,7 @@ function operatorPresent(){
     }
 
     if(numOfNegative){
-        if (numOfNegative.length == 1 && operatorPressed){
+        if (numOfNegative.length == 1 && operatorPressed && !sqrtOnScreen){
             addNegativeEventListener();
         }
         else if(numOfNegative.length == 1){
@@ -153,9 +157,9 @@ function numberOnScreen(){
 
 function displayOperator(e){
     let text = e.target.textContent;
-    if(text === '√'){
-        removeNegativeEventListener();
-    }
+    // if(text === '√'){
+    //     removeNegativeEventListener();
+    // }
     displayScreen(text);
 }
 
