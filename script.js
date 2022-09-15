@@ -12,7 +12,6 @@ function subtract(text) {
     let num1;
 
     let textArr = text.split("−")
-    console.log(textArr);
 
     let numArr = textArr.map((current) => parseFloat(current));
 
@@ -116,16 +115,18 @@ function displayScreen(text){
 
 function operatorPresent(){
     let numOfNegative = displaySpan.textContent.match(/[-]/g);
+    let operatorOnScreen = displaySpan.textContent.match(/[+√×÷−]/g);
+    let sqrtOnScreen = displaySpan.textContent.match(/[√]/g);    
     if(numOfNegative){
-        if (numOfNegative.length == 2) {
+        if (displaySpan.textContent == "-"){
             removeNegativeEventListener();
         }
-        else{
-            negativeEventListener();
+        if(!sqrtOnScreen && !operatorOnScreen){
+            addNegativeEventListener();
         }
     }
 
-    if(displaySpan.textContent.match(/[+√×÷−]/g)){
+    if(operatorOnScreen){
         removeOperatorsListeners();
         operatorPressed = true;
     }
@@ -137,7 +138,13 @@ function operatorPresent(){
 
 function displayNumbers(e){
     let text = e.target.textContent;
+    numberOnScreen();
     displayScreen(text);
+}
+
+function numberOnScreen(){
+    addNegativeEventListener();
+    operatorsEventListener();
 }
 
 function displayOperator(e){
@@ -150,8 +157,8 @@ function displayOperator(e){
 
 function clearScreen(){
     displaySpan.textContent='';
-    operatorsEventListener();
-    negativeEventListener();
+    removeNegativeEventListener();
+    removeOperatorsListeners();
     operatorPressed = false;
 }
 
@@ -181,7 +188,7 @@ function operatorsEventListener(){
 
 }
 
-function negativeEventListener(){
+function addNegativeEventListener(){
     negative = document.querySelector('#negative');
     negative.tabIndex = '-1';
     negative.addEventListener('click',displayNumbers);
@@ -208,12 +215,9 @@ function removeNegativeEventListener(){
 function calculatorStart(){
     equalsEventListener();
     numbersEventListener();
-    negativeEventListener();
-    operatorsEventListener();
     clearButtonEventListener();
 }
 let operatorPressed = false;
-let negativePressed = 0;
 let hasListener;
 let displaySpan = document.querySelector('#display span');
 calculatorStart();
