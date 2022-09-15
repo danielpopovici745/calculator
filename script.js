@@ -117,14 +117,6 @@ function operatorPresent(){
     let numOfNegative = displaySpan.textContent.match(/[-]/g);
     let operatorOnScreen = displaySpan.textContent.match(/[+√×÷−]/g);
     let sqrtOnScreen = displaySpan.textContent.match(/[√]/g);    
-    if(numOfNegative){
-        if (displaySpan.textContent == "-"){
-            removeNegativeEventListener();
-        }
-        if(!sqrtOnScreen && !operatorOnScreen){
-            addNegativeEventListener();
-        }
-    }
 
     if(operatorOnScreen){
         removeOperatorsListeners();
@@ -133,6 +125,18 @@ function operatorPresent(){
     else{
         operatorsEventListener();
         operatorPressed = false;
+    }
+
+    if(numOfNegative){
+        if (numOfNegative.length == 1 && operatorPressed){
+            addNegativeEventListener();
+        }
+        else if(numOfNegative.length == 1){
+            removeNegativeEventListener();
+        }
+        else{
+            removeNegativeEventListener();
+        }
     }
 }
 
