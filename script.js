@@ -63,7 +63,15 @@ function sqRoot(text) {
 
     clearScreen();
 
-    let sqrt = Math.sqrt(numArr[1]).toFixed(4);
+    let sqrt
+
+    if (textArr[0] == "-"){
+        sqrt = Math.sqrt(numArr[1]).toFixed(4);
+        sqrt = -Math.abs(sqrt);
+    }
+    else{
+        sqrt = Math.sqrt(numArr[1]).toFixed(4);
+    }
 
     displayScreen(parseFloat(sqrt));
 }
@@ -118,7 +126,6 @@ function operatorPresent(){
     }
 
     if(displaySpan.textContent.match(/[+√×÷−]/g)){
-        console.log('check');
         removeOperatorsListeners();
         operatorPressed = true;
     }
