@@ -5,11 +5,16 @@ function add(text) {
     let numArr = textArr.map((current) => parseFloat(current));
     clearScreen();
     let addition = numArr[0] + numArr[1];
+    if (addition < 0){
+        removeNegativeEventListener();
+    }
+    else{
+        addNegativeEventListener();
+    }
     displayScreen(parseFloat(addition.toFixed(4)));
 }
 function subtract(text) {
     let subtraction;
-    let num1;
 
     let textArr = text.split("−")
 
@@ -30,6 +35,13 @@ function subtract(text) {
         subtraction = numArr[0] - numArr[1];
     }
 
+    if (subtraction < 0){
+        removeNegativeEventListener();
+    }
+    else{
+        addNegativeEventListener();
+    }
+
     displayScreen(parseFloat(subtraction.toFixed(4)));
 }
 function multiply(text) {
@@ -41,17 +53,30 @@ function multiply(text) {
 
     let multiplication = numArr[0] * numArr[1];
 
+    if (multiplication < 0){
+        removeNegativeEventListener();
+    }
+    else{
+        addNegativeEventListener();
+    }
+
     displayScreen(parseFloat(multiplication.toFixed(4)));
 }
 function divide(text) {
     let textArr = text.split("÷");
     
-
     let numArr = textArr.map((current) => parseFloat(current));
 
     clearScreen();
 
     let division = numArr[0] / numArr[1];
+
+    if (division < 0){
+        removeNegativeEventListener();
+    }
+    else{
+        addNegativeEventListener();
+    }
 
     displayScreen(parseFloat(division.toFixed(4)));
 }
@@ -70,6 +95,13 @@ function sqRoot(text) {
     }
     else{
         sqrt = Math.sqrt(numArr[1]).toFixed(4);
+    }
+
+    if (sqrt< 0){
+        removeNegativeEventListener();
+    }
+    else{
+        addNegativeEventListener();
     }
 
     displayScreen(parseFloat(sqrt));
@@ -100,7 +132,7 @@ function displayScreen(text){
     if(text === '√' && Number.isInteger(parseInt(displaySpan.textContent))){
         displaySpan.textContent = text + displaySpan.textContent;
     }
-    else if (text[1] === '-' && Number.isInteger(screenNumber) && screenNumber > 0) {
+    else if (text[1] === '-' && screenNumber > 0) {
         displaySpan.textContent = text[1] + displaySpan.textContent;
 
     }
@@ -120,7 +152,8 @@ function displayScreen(text){
 function operatorPresent(){
     let numOfNegative = displaySpan.textContent.match(/[-]/g);
     let operatorOnScreen = displaySpan.textContent.match(/[+√×÷−]/g);
-    let sqrtOnScreen = displaySpan.textContent.match(/[√]/g);    
+    let sqrtOnScreen = displaySpan.textContent.match(/[√]/g);
+    let lastEntry = displaySpan.textContent[displaySpan.textContent.length - 1];
 
     if(operatorOnScreen){
         removeOperatorsListeners();
@@ -131,8 +164,12 @@ function operatorPresent(){
         operatorPressed = false;
     }
 
-    if(numOfNegative){
+    negative: if(numOfNegative){
         if (numOfNegative.length == 1 && operatorPressed && !sqrtOnScreen){
+            if(lastEntry == "-" || parseInt(lastEntry)){
+                removeNegativeEventListener();
+                break negative;
+            }
             addNegativeEventListener();
         }
         else if(numOfNegative.length == 1){
@@ -153,6 +190,7 @@ function displayNumbers(e){
 function numberOnScreen(){
     addNegativeEventListener();
     operatorsEventListener();
+    clearButtonEventListener();
 }
 
 function displayOperator(e){
@@ -223,7 +261,6 @@ function removeNegativeEventListener(){
 function calculatorStart(){
     equalsEventListener();
     numbersEventListener();
-    clearButtonEventListener();
 }
 let operatorPressed = false;
 let hasListener;
