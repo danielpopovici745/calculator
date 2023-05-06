@@ -1,10 +1,11 @@
-//get operands from text into an array then use the operator the user selected.
+/* global operators:writable,squareRt:writable, negative:writable,numbers:writable */
+// get operands from text into an array then use the operator the user selected.
 function add(text) {
-  let textArr = text.split("+");
+  const textArr = text.split("+");
 
-  let numArr = textArr.map((current) => parseFloat(current));
+  const numArr = textArr.map((current) => parseFloat(current));
   clearScreen();
-  let addition = numArr[0] + numArr[1];
+  const addition = numArr[0] + numArr[1];
   if (addition < 0) {
     removeNegativeEventListener();
   } else {
@@ -15,9 +16,9 @@ function add(text) {
 function subtract(text) {
   let subtraction;
 
-  let textArr = text.split("−");
+  const textArr = text.split("−");
 
-  let numArr = textArr.map((current) => parseFloat(current));
+  const numArr = textArr.map((current) => parseFloat(current));
 
   clearScreen();
 
@@ -40,13 +41,13 @@ function subtract(text) {
   displayScreen(parseFloat(subtraction.toFixed(4)));
 }
 function multiply(text) {
-  let textArr = text.split("×");
+  const textArr = text.split("×");
 
-  let numArr = textArr.map((current) => parseFloat(current));
+  const numArr = textArr.map((current) => parseFloat(current));
 
   clearScreen();
 
-  let multiplication = numArr[0] * numArr[1];
+  const multiplication = numArr[0] * numArr[1];
 
   if (multiplication < 0) {
     removeNegativeEventListener();
@@ -57,13 +58,13 @@ function multiply(text) {
   displayScreen(parseFloat(multiplication.toFixed(4)));
 }
 function divide(text) {
-  let textArr = text.split("÷");
+  const textArr = text.split("÷");
 
-  let numArr = textArr.map((current) => parseFloat(current));
+  const numArr = textArr.map((current) => parseFloat(current));
 
   clearScreen();
 
-  let division = numArr[0] / numArr[1];
+  const division = numArr[0] / numArr[1];
 
   if (division < 0) {
     removeNegativeEventListener();
@@ -74,15 +75,15 @@ function divide(text) {
   displayScreen(parseFloat(division.toFixed(4)));
 }
 function sqRoot(text) {
-  let textArr = text.split("√");
+  const textArr = text.split("√");
 
-  let numArr = textArr.map((current) => parseFloat(current));
+  const numArr = textArr.map((current) => parseFloat(current));
 
   clearScreen();
 
   let sqrt;
 
-  if (textArr[0] == "-") {
+  if (textArr[0] === "-") {
     sqrt = Math.sqrt(numArr[1]).toFixed(4);
     sqrt = -Math.abs(sqrt);
   } else {
@@ -97,7 +98,7 @@ function sqRoot(text) {
 
   displayScreen(parseFloat(sqrt));
 }
-//Find which operator the user picked
+// Find which operator the user picked
 function operate(text) {
   if ((text.includes("+") && text.includes("-")) || text.includes("+")) {
     add(text);
@@ -112,19 +113,19 @@ function operate(text) {
   }
 }
 
-//Controls what is displayed on the screen and how
+// Controls what is displayed on the screen and how
 
 function displayScreen(text) {
-  let screenNumber = Number(displaySpan.textContent);
-  if (text === "√" && Number.isInteger(parseInt(displaySpan.textContent))) {
+  const screenNumber = Number(displaySpan.textContent);
+  if (text === "√" && Number.isInteger(parseInt(displaySpan.textContent, 10))) {
     displaySpan.textContent = text + displaySpan.textContent;
   } else if (text[1] === "-" && screenNumber > 0) {
     displaySpan.textContent = text[1] + displaySpan.textContent;
   }
   // puts negative symbol before √ if present
-  else if (text[1] == "-" && displaySpan.textContent.includes("√")) {
+  else if (text[1] === "-" && displaySpan.textContent.includes("√")) {
     displaySpan.textContent = text[1] + displaySpan.textContent;
-  } else if (text[1] == "-") {
+  } else if (text[1] === "-") {
     displaySpan.textContent += text[1];
   } else {
     displaySpan.textContent += text;
@@ -133,10 +134,10 @@ function displayScreen(text) {
 }
 
 function operatorPresent() {
-  let numOfNegative = displaySpan.textContent.match(/[-]/g);
-  let operatorOnScreen = displaySpan.textContent.match(/[+√×÷−]/g);
-  let sqrtOnScreen = displaySpan.textContent.match(/[√]/g);
-  let lastEntry = displaySpan.textContent[displaySpan.textContent.length - 1];
+  const numOfNegative = displaySpan.textContent.match(/[-]/g);
+  const operatorOnScreen = displaySpan.textContent.match(/[+√×÷−]/g);
+  const sqrtOnScreen = displaySpan.textContent.match(/[√]/g);
+  const lastEntry = displaySpan.textContent[displaySpan.textContent.length - 1];
 
   if (operatorOnScreen) {
     removeOperatorsListeners();
@@ -147,13 +148,13 @@ function operatorPresent() {
   }
 
   negative: if (numOfNegative) {
-    if (numOfNegative.length == 1 && operatorPressed && !sqrtOnScreen) {
-      if (lastEntry == "-" || parseInt(lastEntry)) {
+    if (numOfNegative.length === 1 && operatorPressed && !sqrtOnScreen) {
+      if (lastEntry === "-" || parseInt(lastEntry, 10)) {
         removeNegativeEventListener();
         break negative;
       }
       addNegativeEventListener();
-    } else if (numOfNegative.length == 1) {
+    } else if (numOfNegative.length === 1) {
       removeNegativeEventListener();
     } else {
       removeNegativeEventListener();
@@ -162,7 +163,7 @@ function operatorPresent() {
 }
 
 function displayNumbers(e) {
-  let text = e.target.textContent;
+  const text = e.target.textContent;
   numberOnScreen();
   displayScreen(text);
 }
@@ -174,7 +175,7 @@ function numberOnScreen() {
 }
 
 function displayOperator(e) {
-  let text = e.target.textContent;
+  const text = e.target.textContent;
   // if(text === '√'){
   //     removeNegativeEventListener();
   // }
@@ -189,16 +190,16 @@ function clearScreen() {
 }
 
 function clearButtonEventListener() {
-  let clear = document.querySelector("#clr");
+  const clear = document.querySelector("#clr");
   clear.tabIndex = "-1";
   clear.addEventListener("click", () => clearScreen());
 }
 
 function equalsEventListener() {
-  let equals = document.querySelector("#equals");
+  const equals = document.querySelector("#equals");
   equals.tabIndex = "-1";
-  equals.addEventListener("click", function () {
-    let text = displaySpan.textContent;
+  equals.addEventListener("click", () => {
+    const text = displaySpan.textContent;
     operate(text);
   });
 }
@@ -206,7 +207,8 @@ function equalsEventListener() {
 function operatorsEventListener() {
   operators = document.querySelectorAll("#operators button.display");
   operators.forEach((operator) => {
-    operator.tabIndex = "-1";
+    const operatorPlacement = operator;
+    operatorPlacement.tabIndex = "-1";
   });
   squareRt = document.querySelector("#sqrt");
   squareRt.tabIndex = "-1";
@@ -224,9 +226,10 @@ function addNegativeEventListener() {
 
 function numbersEventListener() {
   numbers = document.querySelectorAll("#numContainer button.display");
-  numbers.forEach(function (number) {
-    number.addEventListener("click", displayNumbers);
-    number.tabIndex = "-1";
+  numbers.forEach((number) => {
+    const numberPlacement = number;
+    numberPlacement.addEventListener("click", displayNumbers);
+    numberPlacement.tabIndex = "-1";
   });
 }
 
@@ -238,7 +241,6 @@ function removeOperatorsListeners() {
 }
 
 function removeNegativeEventListener() {
-  hasListener = false;
   negative.removeEventListener("click", displayNumbers);
 }
 function calculatorStart() {
@@ -246,14 +248,13 @@ function calculatorStart() {
   numbersEventListener();
 }
 let operatorPressed = false;
-let hasListener;
 let displaySpan = document.querySelector("#display span");
 calculatorStart();
 
 window.addEventListener("keydown", keyPressed);
 
 function keyPressed(e) {
-  let key = e.key;
+  const { key } = e;
 
   if (!operatorPressed) {
     switch (key) {
@@ -273,19 +274,21 @@ function keyPressed(e) {
         displayScreen("−");
         operatorPressed = true;
         break;
+      default:
     }
   }
   switch (true) {
     case key >= 0 && key <= 9:
       displayScreen(key);
       break;
-    case key == "Enter":
+    case key === "Enter":
       operate(displaySpan.textContent);
       operatorPressed = false;
       break;
-    case key == "Backspace":
+    case key === "Backspace":
       displaySpan.textContent = displaySpan.textContent.slice(0, -1);
       operatorPresent();
       break;
+    default:
   }
 }
