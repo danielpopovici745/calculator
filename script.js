@@ -176,9 +176,6 @@ function numberOnScreen() {
 
 function displayOperator(e) {
   const text = e.target.textContent;
-  // if(text === '√'){
-  //     removeNegativeEventListener();
-  // }
   displayScreen(text);
 }
 
